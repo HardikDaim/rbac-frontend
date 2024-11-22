@@ -1,6 +1,8 @@
 import axios from "axios";
 
-const BASE_URL = process.env.REACT_APP_BASE_URL;
+const BASE_URL = process.env.NODE_ENV === 'production'
+  ? process.env.REACT_APP_PROD_URL // Production URL
+  : process.env.REACT_APP_LOCAL_URL; // Local URL
 
 
 export const getUsers = async () => axios.get(`${BASE_URL}/users`);
