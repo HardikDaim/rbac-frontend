@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 flex items-center justify-center">
-      <div className="max-w-4xl mx-auto bg-white dark:bg-gray-800 shadow-md rounded-lg p-8">
-        <h1 className="text-4xl font-extrabold text-gray-800 dark:text-gray-200 text-center mb-8">
+    <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+      <div className="max-w-4xl mx-auto bg-gray-800 shadow-md rounded-lg p-8">
+        <h1 className="text-4xl font-extrabold text-gray-200 text-center mb-8">
           Role-Based Access Control System
         </h1>
-        <p className="text-lg text-gray-600 dark:text-gray-400 text-center mb-6">
+        <p className="text-lg text-gray-400 text-center mb-6">
           Manage users and roles efficiently with our intuitive interface.
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -25,6 +25,9 @@ const Home = () => {
             Manage Users
           </Link>
         </div>
+        <p className="text-lg text-gray-400 text-center mt-4 italic">
+          Made by <span className="font-bold">Hardik Daim</span>
+        </p>
       </div>
     </div>
   );

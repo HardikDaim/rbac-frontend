@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getUsers, addUser, deleteUser, getRoles, updateUserRole, updateUserStatus } from "../api/api";
+import ClipLoader from "react-spinners/ClipLoader";  // Import ClipLoader
 
 const UserManager = () => {
   const [users, setUsers] = useState([]);
@@ -99,15 +100,14 @@ const UserManager = () => {
   const handleChangeStatus = async (userId, newStatus) => {
     setLoading(true);
     try {
-      await updateUserStatus(userId, newStatus); // Update the status
-      fetchUsers(); // Re-fetch the users to get updated data
+      await updateUserStatus(userId, newStatus);
+      fetchUsers();
     } catch (error) {
       console.error("Error updating status:", error);
     } finally {
       setLoading(false);
     }
   };
-
 
   const openDeleteModal = (id) => {
     setDeleteUserId(id);
@@ -131,18 +131,18 @@ const UserManager = () => {
   };
 
   return (
-    <div className="container mx-auto p-6">
+    <div className="container mx-auto p-6 bg-gray-900 text-white">
       <h1 className="text-3xl font-semibold mb-6 text-center">User Management</h1>
 
       {/* Add User Form */}
-      <div className="bg-white shadow-lg rounded-lg p-6 mb-6">
+      <div className="bg-gray-800 shadow-lg rounded-lg p-6 mb-6">
         <h2 className="text-2xl font-medium mb-4">Add New User</h2>
         <form onSubmit={handleAddUser} className="space-y-4">
           <div>
             <input
               type="text"
               placeholder="Name"
-              className="w-full p-3 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full p-3 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-700 text-white"
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
             />
@@ -152,7 +152,7 @@ const UserManager = () => {
             <input
               type="email"
               placeholder="Email"
-              className="w-full p-3 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full p-3 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-700 text-white"
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
             />
@@ -162,7 +162,7 @@ const UserManager = () => {
             <select
               value={formData.role}
               onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-              className="w-full p-3 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full p-3 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-700 text-white"
             >
               <option value="">Select Role</option>
               {roles.map((role) => (
@@ -180,7 +180,7 @@ const UserManager = () => {
             }`}
             disabled={loading}
           >
-            {loading ? "Adding..." : "Add User"}
+            {loading ? <ClipLoader size={20} color="white" /> : "Add User"}
           </button>
         </form>
       </div>
@@ -188,27 +188,29 @@ const UserManager = () => {
       {/* Users List (Card Layout) */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {loading ? (
-          <p className="text-center">Loading users...</p>
+          <div className="col-span-full text-center">
+            <ClipLoader size={50} color="#ffffff" />
+          </div>
         ) : (
           users.map((user) => (
             <div
               key={user._id}
-              className="bg-white shadow-lg rounded-lg p-6 flex flex-col space-y-4"
+              className="bg-gray-800 shadow-lg rounded-lg p-6 flex flex-col space-y-4"
             >
               <div>
                 <h3 className="text-xl font-medium">{user.name}</h3>
-                <p className="text-gray-500">{user.email}</p>
+                <p className="text-gray-400">{user.email}</p>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-blue-500">{user.role?.name}</span>
                 <select
-                    value={user.status}
-                    onChange={(e) => handleChangeStatus(user._id, e.target.value)}
-                    className="mt-2 p-2 border rounded-lg"
-                  >
-                    <option value="Active">Active</option>
-                    <option value="Inactive">Inactive</option>
-                  </select>
+                  value={user.status}
+                  onChange={(e) => handleChangeStatus(user._id, e.target.value)}
+                  className="mt-2 p-2 border rounded-lg bg-gray-700 text-white"
+                >
+                  <option value="Active">Active</option>
+                  <option value="Inactive">Inactive</option>
+                </select>
                 <div className="flex space-x-4">
                   <button
                     onClick={() => openEditRoleModal(user)}
@@ -232,7 +234,7 @@ const UserManager = () => {
       {/* Confirmation Modal for Deleting User */}
       {isDeleteModalOpen && (
         <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full transition-all duration-300 transform scale-105">
+          <div className="bg-gray-700 p-6 rounded-lg shadow-lg max-w-sm w-full transition-all duration-300 transform scale-105">
             <h3 className="text-xl font-medium mb-4">Are you sure you want to delete this user?</h3>
             <div className="flex space-x-4">
               <button
@@ -243,7 +245,7 @@ const UserManager = () => {
               </button>
               <button
                 onClick={closeDeleteModal}
-                className="px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400"
+                className="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600"
               >
                 Cancel
               </button>
@@ -252,33 +254,33 @@ const UserManager = () => {
         </div>
       )}
 
-      {/* Edit User Role Modal */}
+      {/* Edit Role Modal */}
       {isEditRoleModalOpen && (
         <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full transition-all duration-300 transform scale-105">
-            <h3 className="text-xl font-medium mb-4">Edit User Role</h3>
+          <div className="bg-gray-700 p-6 rounded-lg shadow-lg max-w-sm w-full transition-all duration-300 transform scale-105">
+            <h3 className="text-xl font-medium mb-4">Change User Role</h3>
             <select
               value={newRole}
               onChange={(e) => setNewRole(e.target.value)}
-              className="w-full p-3 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full p-3 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-700 text-white"
             >
-              <option value="">Select New Role</option>
+              <option value="">Select Role</option>
               {roles.map((role) => (
                 <option key={role._id} value={role._id}>
                   {role.name}
                 </option>
               ))}
             </select>
-            <div className="flex justify-between items-center mt-4">
+            <div className="mt-4 flex space-x-4">
               <button
                 onClick={handleEditRole}
                 className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
               >
-                Save
+                Save Changes
               </button>
               <button
                 onClick={closeEditRoleModal}
-                className="px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400"
+                className="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600"
               >
                 Cancel
               </button>
