@@ -136,7 +136,7 @@ const UserManager = () => {
 
       {/* Add User Form */}
       <div className="bg-gray-800 shadow-lg rounded-lg p-6 mb-6">
-        <h2 className="text-2xl font-medium mb-4">Add New User</h2>
+        <h2 className="text-2xl flex justify-center lg:justify-start font-medium mb-4">Add New User</h2>
         <form onSubmit={handleAddUser} className="space-y-4">
           <div>
             <input
@@ -257,7 +257,7 @@ const UserManager = () => {
       {/* Edit Role Modal */}
       {isEditRoleModalOpen && (
         <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-gray-700 p-6 rounded-lg shadow-lg max-w-sm w-full transition-all duration-300 transform scale-105">
+          <div className="bg-gray-800 p-6 rounded-lg shadow-lg max-w-sm w-full transition-all duration-300 transform scale-105">
             <h3 className="text-xl font-medium mb-4">Change User Role</h3>
             <select
               value={newRole}

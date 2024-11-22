@@ -111,7 +111,7 @@ const RoleManager = () => {
           <>
             {/* Add Role Form */}
             <div className="bg-gray-800 shadow-lg rounded-lg p-6 mb-6">
-              <h2 className="text-2xl font-medium mb-4 text-gray-200">
+              <h2 className="text-2xl flex justify-center lg:justify-start font-medium mb-4 text-gray-200">
                 Add New Role
               </h2>
               <form onSubmit={handleAddRole} className="space-y-4">
