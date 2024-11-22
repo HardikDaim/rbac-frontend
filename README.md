@@ -2,7 +2,7 @@
 ### 1. Clone the Repository
 ```bash
 git clone https://github.com/HardikDaim/rbac-frontend.git
-cd frontend
+cd rbac-frontend
 ```
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
